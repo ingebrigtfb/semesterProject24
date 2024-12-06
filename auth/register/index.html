@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="no">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script type="module" src="/src/app.js"></script>
+    <title>Register</title>
+</head>
+<body>
+    <header id="header"></header>
+    <main class="flex items-center justify-center mt-10">
+        <form name="register" class="w-full max-w-md h-auto bg-[#edf2f7] rounded-lg shadow-md p-6 flex flex-col gap-4">
+            <h1 class="text-center text-xl font-medium mb-4">REGISTRER</h1>
+            <div class="flex flex-col">
+              <label for="name" class="text-sm font-medium mb-1">Name</label>
+              <input
+                id="name"
+                type="text"
+                name="name"
+                required
+                maxlength="20"
+                pattern="^[\w]+$"
+                title="Please enter a username using only letters and numbers"
+                class="border border-secondary rounded-md p-2 focus:ring-2 focus:ring-secondary outline-none"
+              />
+            </div>
+          
+            <div class="flex flex-col">
+              <label for="email" class="text-sm font-medium mb-1">Email</label>
+              <input
+                id="email"
+                type="email"
+                name="email"
+                required
+                pattern="^[\w\-.]+@(stud\.)?noroff\.no$"
+                title="Please enter a valid noroff.no or stud.noroff.no address"
+                class="border border-secondary rounded-md p-2 focus:ring-2 focus:ring-secondary outline-none"
+              />
+            </div>
+          
+            <div class="flex flex-col">
+              <label for="password" class="text-sm font-medium mb-1">Password</label>
+              <input
+                type="password"
+                name="password"
+                id="password"
+                required
+                minlength="8"
+                class="border border-secondary rounded-md p-2 focus:ring-2 focus:ring-secondary outline-none"
+              />
+            </div>
+          
+            <div class="flex justify-between items-center mt-4">
+              <a href="/auth/login/" class="text-lg font-medium text-secondary hover:underline">Login</a>
+              <button
+                type="submit"
+                class="bg-secondary text-md text-white font-medium px-6 py-2 rounded-md hover:bg-gray-700 transition">
+                Register
+              </button>
+            </div>
+          </form>
+    </main>
+</body>
+</html>
