@@ -42,7 +42,7 @@ export async function displayAllListings() {
               <h2 class="text-xl font-medium mb-2">${listing.title}</h2>
               <p class="text-gray-700 mb-2">Author: ${sellerName}</p>
               ${mediaContent}
-              <p class="text-gray-700">${listing.description || "No description available"}</p>
+              <p class="text-gray-700">${listing.description || ""}</p>
             </a>
           `;
 
