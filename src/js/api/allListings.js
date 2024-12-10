@@ -4,7 +4,7 @@ export async function fetchAllListings() {
   try {
     const url = new URL(API_AUCTION_LISTINGS);
     url.searchParams.append("_active", "true");
-    url.searchParams.append("_active", "true");
+    url.searchParams.append("_bids", "true");
     url.searchParams.append("_seller", "true");
     url.searchParams.append("sort", "created");
     url.searchParams.append("sortOrder", "desc");
