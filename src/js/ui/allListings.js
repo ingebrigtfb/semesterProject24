@@ -9,42 +9,45 @@ export async function displayAllListings() {
 
   try {
     const response = await fetchAllListings();
-    //console.log(response);
 
     const listings = response.data;
-    //console.log(listings);
 
     if (!listings || listings.length === 0) {
       postsContainer.innerHTML = `<p>No listings available at the moment.</p>`;
       return;
     }
 
-    postsContainer.innerHTML = "";
+    postsContainer.className = "grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 p-6 max-w-[1400px] m-auto";
 
-    listings.sort((a, b) => new Date(b.updated) - new Date(a.updated));
-
-   
     listings.forEach((listing) => {
-      //console.log("listing); 
-
-      const postElement = document.createElement("div");
-      postElement.className = "post bg-white shadow-md rounded-lg p-4 mb-4";
+      const totalBidAmount = listing.bids
+        ? listing.bids.reduce((sum, bid) => sum + (bid.amount || 0), 0)
+        : 0;
 
       const mediaContent =
         listing.media && listing.media.length > 0
-          ? `<img src="${listing.media[0].url}" alt="${listing.media[0].alt}" class="w-[200px] h-auto mb-4 rounded-lg">`
-          : "";
+          ? `<img src="${listing.media[0].url}" alt="${listing.media[0].alt || "Listing Image"}" class="w-full h-64 object-cover rounded-t-lg">`
+          : `<div class="w-full h-64 bg-gray-200 rounded-t-lg flex items-center justify-center">No Image</div>`;
 
-          const sellerName = listing.seller ? listing.seller.name : "Unknown";
+      const postElement = document.createElement("a");
+      postElement.href = `/annonse/?id=${listing.id}`;
+      postElement.className = "bg-white shadow-md rounded-lg flex flex-col hover:shadow-lg transition-shadow duration-300";
 
-          postElement.innerHTML = `
-            <a href="/annonse/?id=${listing.id}" class="block">
-              <h2 class="text-xl font-medium mb-2">${listing.title}</h2>
-              <p class="text-gray-700 mb-2">Author: ${sellerName}</p>
-              ${mediaContent}
-              <p class="text-gray-700">${listing.description || ""}</p>
-            </a>
-          `;
+      postElement.innerHTML = `
+        <div class="relative">
+          ${mediaContent}
+        </div>
+        <div class="p-4 flex flex-col justify-between flex-grow">
+          <h2 class="text-lg font-bold mb-2 line-clamp-3">${listing.title}</h2>
+          <p class="text-sm text-gray-600 mb-4 line-clamp-3">${listing.description || "No description available"}</p>
+          <div class="flex items-center justify-between">
+            <button class="bg-blue-500 text-white text-sm font-medium px-4 py-2 rounded hover:bg-blue-600">
+              GI BUD
+            </button>
+            <p class="text-sm font-medium text-gray-700">Total Bud: ${totalBidAmount} NOK</p>
+          </div>
+        </div>
+      `;
 
       postsContainer.appendChild(postElement);
     });

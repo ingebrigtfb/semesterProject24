@@ -44,8 +44,8 @@ const publicOptions = [
 ];
 
 const privateOptions = [
-  { text: "Min profil", href: "/profile/" },
-  { text: "Lag ny annonse", href: "/new-ad" },
+  { text: "Min profil", href: "/profil/" },
+  { text: "Lag ny annonse", href: "/lage/" },
 ];
 
 
