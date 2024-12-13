@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Oppdater profil</title>
+  <script type="module" crossorigin src="../assets/app-Cl1bCiaW.js"></script>
+  <link rel="stylesheet" crossorigin href="../assets/app-Dr3PsgEG.css">
+</head>
+<body>
+    <header id="header"></header>
+    <main class="flex items-center justify-center mt-10">
+        <form id="update-profile-form" class="w-full max-w-md h-auto bg-[#edf2f7] rounded-lg shadow-md p-6 flex flex-col gap-4">
+          <h1 class="text-center text-xl font-medium mb-4">Rediger profil</h1>
+    
+          <div class="flex flex-col">
+            <label for="bio" class="text-sm font-medium mb-1">Bio</label>
+            <textarea id="bio" name="bio" class="border border-secondary rounded-md p-2 focus:ring-2 focus:ring-secondary outline-none"></textarea>
+          </div>
+    
+          <div class="flex flex-col">
+            <label for="avatar" class="text-sm font-medium mb-1">Avatar URL</label>
+            <input id="avatar" type="url" name="avatar" class="border border-secondary rounded-md p-2 focus:ring-2 focus:ring-secondary outline-none" />
+          </div>
+          <div class="flex flex-col">
+            <label for="avatar-alt" class="text-sm font-medium mb-1">Avatar Alt Text</label>
+            <input id="avatar-alt" type="text" name="avatar-alt" class="border border-secondary rounded-md p-2 focus:ring-2 focus:ring-secondary outline-none" />
+          </div>
+    
+          <div class="flex flex-col">
+            <label for="banner" class="text-sm font-medium mb-1">Banner URL</label>
+            <input id="banner" type="url" name="banner" class="border border-secondary rounded-md p-2 focus:ring-2 focus:ring-secondary outline-none" />
+          </div>
+          <div class="flex flex-col">
+            <label for="banner-alt" class="text-sm font-medium mb-1">Banner Alt Text</label>
+            <input id="banner-alt" type="text" name="banner-alt" class="border border-secondary rounded-md p-2 focus:ring-2 focus:ring-secondary outline-none" />
+          </div>
+    
+          <button type="submit" class="bg-secondary text-md text-white font-medium px-6 py-2 rounded-md hover:bg-gray-700 transition">Oppdater</button>
+        </form>
+      </main>
+  </body>
+</html>
