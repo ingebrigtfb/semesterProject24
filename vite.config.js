@@ -31,7 +31,7 @@ export default defineConfig(async () => {
         targets: [
           {
             src: 'images', 
-            dest: 'images' 
+            dest: '' 
           }
         ]
       })
