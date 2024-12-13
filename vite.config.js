@@ -1,5 +1,9 @@
 import { resolve } from "path";
 import { defineConfig } from "vite";
+import dotenv from "dotenv";
+
+// Load environment variables
+dotenv.config();
 
 export default defineConfig({
   appType: "mpa",
@@ -18,5 +22,8 @@ export default defineConfig({
         updateProfile: resolve(__dirname, "./oppdater-profil/index.html"),
       },
     },
+  },
+  define: {
+    "import.meta.env.VITE_API_KEY": JSON.stringify(process.env.VITE_API_KEY),
   },
 });
