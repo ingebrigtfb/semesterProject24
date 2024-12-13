@@ -1,0 +1,1 @@
+import{A as e}from"./constants-CL3gOxZ7.js";async function a(o){try{const t=e.replace("<id>",o),r=await fetch(t);if(!r.ok)throw new Error(`Failed to fetch listing: ${r.statusText}`);return await r.json()}catch(t){throw console.error("Error in fetchSingleListing:",t),t}}export{a as f};
