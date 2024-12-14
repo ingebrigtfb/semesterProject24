@@ -13,5 +13,3 @@ export const API_AUTH_KEY = `${API_AUTH}/create-api-key`;
 
 export const API_AUCTION_LISTINGS  = `${API_BASE}/auction/listings`;
 
-export const API_AUCTION_SINGLE_LISTING  = `${API_BASE}/auction/listings/<id>`;
-

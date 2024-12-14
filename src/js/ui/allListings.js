@@ -72,7 +72,7 @@ export async function displayAllListings() {
             <h2 class="text-lg font-bold mb-2 line-clamp-3">${listing.title}</h2>
             <p class="text-sm text-gray-600 mb-4 line-clamp-3">${listing.description || ""}</p>
             <div class="flex items-center justify-between">
-              <button class="bg-blue-500 text-white text-sm font-medium px-4 py-2 rounded hover:bg-blue-600">
+              <button class="bg-secondary text-white text-sm font-medium px-4 py-2 rounded hover:bg-grey-700">
                 GI BUD
               </button>
               <p class="text-sm font-medium text-gray-700">Total Bud: ${totalBidAmount} NOK</p>
@@ -88,7 +88,7 @@ export async function displayAllListings() {
     }
   }
 
-  // Initial load
+
   await fetchAndRenderListings();
 
   // Add event listener for search functionality
