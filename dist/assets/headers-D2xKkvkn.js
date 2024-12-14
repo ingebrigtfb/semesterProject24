@@ -1,1 +1,0 @@
-import{a as n}from"./constants-CL3gOxZ7.js";function o(a){const e=new Headers;return e.append("X-Noroff-API-Key",n),e.append("Content-Type","application/json"),a&&e.append("Authorization",`Bearer ${a}`),e}export{o as h};
