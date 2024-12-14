@@ -1,19 +1,24 @@
-import { API_AUCTION_SINGLE_LISTING } from "./constants.js";
+import { API_AUCTION_LISTINGS } from "./constants.js";
+import { headers } from "./headers.js";
 
 export async function fetchSingleListing(listingId) {
   try {
-    const url = API_AUCTION_SINGLE_LISTING.replace("<id>", listingId); 
+    
+    const url = new URL(`${API_AUCTION_LISTINGS}/${listingId}`);
+    url.searchParams.append("_bids", "true"); 
 
-    const response = await fetch(url);
+    console.log("Fetching URL:", url.toString()); 
 
+    const response = await fetch(url, { headers: headers() });
     if (!response.ok) {
-      throw new Error(`Failed to fetch listing: ${response.statusText}`);
+      const errorDetails = await response.json().catch(() => null);
+      console.error("Fetch Error Details:", errorDetails);
+      throw new Error("Failed to fetch listing data.");
     }
 
-    const data = await response.json();
-    return data; 
+    return await response.json();
   } catch (error) {
-    console.error("Error in fetchSingleListing:", error);
+    console.error("Error fetching single listing:", error);
     throw error;
   }
-}   
+}
