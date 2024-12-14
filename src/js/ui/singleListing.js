@@ -133,7 +133,7 @@ function initializeCountdown(utcEndTime) {
                         <img 
                           src="${image.url}" 
                           alt="${image.alt || "Listing Image"}" 
-                          class="w-full h-full object-cover rounded-lg"
+                          class="w-full h-full max-h-[500px] object-cover rounded-lg"
                         >
                       </div>`
                     )
