@@ -4,7 +4,7 @@ import { logout } from "./logout.js";
 const header = document.createElement("div");
 
 const container = document.createElement("div");
-container.className = "max-w-7xl mx-auto flex justify-between items-center p-4 relative";
+container.className = "max-w-7xl mx-auto flex justify-between items-center p-4 relative z-10";
 
 
 const logo = document.createElement("div");
