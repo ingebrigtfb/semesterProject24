@@ -55,7 +55,7 @@ const token = localStorage.getItem("token");
 publicOptions.forEach((option) => {
   const optionElement = document.createElement("a");
   optionElement.href = option.href;
-  optionElement.className = "block px-4 py-2 text-black hover:bg-gray-200 rounded md:rounded-none";
+  optionElement.className = "block px-4 py-2 text-black hover:underline rounded md:rounded-none";
   optionElement.textContent = option.text;
   dropdown.appendChild(optionElement);
 });
@@ -65,7 +65,7 @@ if (token) {
   privateOptions.forEach((option) => {
     const optionElement = document.createElement("a");
     optionElement.href = option.href;
-    optionElement.className = "block px-4 py-2 text-black hover:bg-gray-200 rounded md:rounded-none";
+    optionElement.className = "block px-4 py-2 text-black hover:underline rounded md:rounded-none";
     optionElement.textContent = option.text;
     dropdown.appendChild(optionElement);
   });
@@ -73,7 +73,7 @@ if (token) {
 
 
 const authOption = document.createElement("a");
-authOption.className = "block px-4 py-2 text-black hover:bg-gray-200 rounded md:rounded-none";
+authOption.className = "block px-4 py-2 text-black hover:underline rounded md:rounded-none";
 
 if (token) {
   authOption.textContent = "Logout";

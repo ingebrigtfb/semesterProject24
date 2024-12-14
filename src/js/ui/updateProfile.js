@@ -33,7 +33,7 @@ export async function onUpdateProfile(event) {
   try {
     const updatedProfile = await updateProfile(username, profileData);
     alert("Profile updated successfully!");
-    window.location.href = "/profile/";
+    window.location.href = "/profil/";
     console.log("Updated Profile:", updatedProfile);
   } catch (error) {
     alert(`Error updating profile: ${error.message}`);

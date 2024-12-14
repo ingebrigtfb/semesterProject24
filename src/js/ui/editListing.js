@@ -23,10 +23,6 @@ export async function displayEditListingForm(listingId) {
                 <label for="description" class="text-sm font-medium mb-1">Beskrivelse</label>
                 <textarea id="description" name="description" required class="border border-gray-300 rounded-md p-2">${data.description || ""}</textarea>
               </div>
-              <div class="flex flex-col">
-                <label for="endsAt" class="text-sm font-medium mb-1">Slutt dato og tid</label>
-                <input id="endsAt" name="endsAt" type="datetime-local" value="${new Date(data.endsAt).toISOString().slice(0, -1)}" required class="border border-gray-300 rounded-md p-2">
-              </div>
               <div class="flex flex-col gap-4" id="media-container">
                 <label class="text-sm font-medium mb-1">Bilder</label>
                 ${data.media
@@ -98,8 +94,6 @@ export async function displayEditListingForm(listingId) {
             const updatedData = {
                 title: form.querySelector("#title").value.trim(),
                 description: form.querySelector("#description").value.trim(),
-                endsAt: form.querySelector("#endsAt").value.trim(),
-                media,
             };
 
             try {
