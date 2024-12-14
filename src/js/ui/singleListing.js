@@ -15,12 +15,22 @@ export async function displaySingleListing() {
     const response = await fetchSingleListing(listingId);
     const listing = response.data;
     console.log("Fetched Listing Data:", listing);
-    console.log("Media Array:", listing.media);
 
+    // Check if the listing exists
+    if (!listing) {
+      listingContainer.innerHTML = `<p>Listing not found. Please check the ID and try again.</p>`;
+      return;
+    }
+
+    // Format endsAt
+    const endsAt = listing.endsAt
+      ? new Date(listing.endsAt).toLocaleString()
+      : "No end date provided";
+
+    // Handle media content
     let mediaContent = "";
     if (listing.media && listing.media.length > 0) {
       if (listing.media.length === 1) {
-        // Single image, no carousel
         mediaContent = `
           <img 
             src="${listing.media[0].url}" 
@@ -28,19 +38,18 @@ export async function displaySingleListing() {
             class="w-full h-auto rounded-lg"
           >`;
       } else {
-        // Multiple images, create carousel
         mediaContent = `
           <div class="carousel relative w-full h-auto overflow-hidden">
             <div id="carousel-images" class="flex transition-transform duration-500 ease-in-out">
               ${listing.media
                 .map(
                   (image) => `
-                <img 
-                  src="${image.url}" 
-                  alt="${image.alt || "Listing Image"}" 
-                  class="w-full h-auto flex-shrink-0 rounded-lg"
-                >
-              `
+                  <img 
+                    src="${image.url}" 
+                    alt="${image.alt || "Listing Image"}" 
+                    class="w-full h-auto flex-shrink-0 rounded-lg"
+                  >
+                `
                 )
                 .join("")}
             </div>
@@ -57,36 +66,47 @@ export async function displaySingleListing() {
           </div>`;
       }
     } else {
-      //console.log("No media available");
-      mediaContent = `<p></p>`;
+      mediaContent = `<p>No media available for this listing.</p>`;
     }
 
-    // Display listing details
+    // Add a countdown container if `endsAt` exists
+    const countdownHTML = listing.endsAt
+      ? `<p id="countdown" class="text-lg font-bold text-red-500"></p>`
+      : `<p class="text-gray-500">No end date provided for this listing.</p>`;
 
+    // Render the listing details
     listingContainer.innerHTML = `
       <div class="listing bg-white shadow-md rounded-lg p-4">
-        <h1 class="text-2xl font-bold mb-4">${listing.title || "No Title"}</h1>
+        <h1 class="text-2xl font-bold mb-4">${listing.title || ""}</h1>
         ${mediaContent}
         <p class="text-gray-700 mb-2"><strong>Description:</strong> ${
           listing.description || ""
         }</p>
+        <p class="text-gray-700"><strong>Created:</strong> ${new Date(
+          listing.created
+        ).toString()}</p>
         <p class="text-gray-700"><strong>Updated:</strong> ${new Date(
-          listing.updated || ""
-        ).toLocaleString()}</p>
+          listing.updated
+        ).toString()}</p>
+        <p class="text-gray-700"><strong>Ends At:</strong> ${endsAt}</p>
+        ${countdownHTML}
       </div>
     `;
 
     if (listing.media && listing.media.length > 1) {
       initializeCarousel(listing.media.length);
     }
+
+    if (listing.endsAt) {
+      initializeCountdown(new Date(listing.endsAt));
+    }
   } catch (error) {
     console.error("Error displaying listing details:", error);
-    listingContainer.innerHTML = `<p>Failed to load listing details. Please try again later.</p>`;
+    listingContainer.innerHTML = `<p>Prøvde å laste inn, prøv igjen senere.</p>`;
   }
 }
 
-// carousel logic
-
+// Initialize Carousel Logic
 function initializeCarousel(totalImages) {
   const carouselImages = document.getElementById("carousel-images");
   const prevButton = document.getElementById("prev-button");
@@ -94,12 +114,9 @@ function initializeCarousel(totalImages) {
 
   let currentIndex = 0;
 
-  console.log("Total Images in Carousel:", totalImages);
-
   const updateCarousel = () => {
-    const offset = currentIndex * -100; 
+    const offset = currentIndex * -100;
     carouselImages.style.transform = `translateX(${offset}%)`;
-    console.log("Current Index:", currentIndex);
   };
 
   prevButton.addEventListener("click", () => {
@@ -112,6 +129,42 @@ function initializeCarousel(totalImages) {
     updateCarousel();
   });
 
-  
-  updateCarousel();
+  updateCarousel(); 
+
 }
+
+
+function initializeCountdown(utcEndTime) {
+    const countdownElement = document.getElementById("countdown");
+  
+    const localEndTime = new Date(utcEndTime);
+  
+    function updateCountdown() {
+      const now = new Date(); 
+      const timeRemaining = localEndTime - now; 
+  
+      if (timeRemaining <= 0) {
+        clearInterval(timer);
+        countdownElement.textContent = "Auction has ended.";
+        countdownElement.classList.add("text-gray-500");
+        return;
+      }
+  
+   
+      const days = Math.floor(timeRemaining / (1000 * 60 * 60 * 24));
+      const hours = Math.floor((timeRemaining / (1000 * 60 * 60)) % 24);
+      const minutes = Math.floor((timeRemaining / (1000 * 60)) % 60);
+      const seconds = Math.floor((timeRemaining / 1000) % 60);
+  
+
+      countdownElement.textContent = `Time left: ${days > 0 ? days + "d " : ""}${hours
+        .toString()
+        .padStart(2, "0")}:${minutes.toString().padStart(2, "0")}:${seconds
+        .toString()
+        .padStart(2, "0")}`;
+    }
+  
+
+    const timer = setInterval(updateCountdown, 1000);
+    updateCountdown(); 
+  }
