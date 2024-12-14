@@ -88,12 +88,11 @@ function initializeCountdown(utcEndTime) {
   
     const urlParams = new URLSearchParams(window.location.search);
     const listingId = urlParams.get("id");
-    console.log("Listing ID:", listingId);
   
     try {
       const response = await fetchSingleListing(listingId);
       const listing = response.data;
-      console.log("Fetched Listing Data:", listing);
+      //console.log("Fetched Listing Data:", listing);
   
       if (!listing) {
         listingContainer.innerHTML = `<p>Annonse ble ikke funnet.</p>`;
@@ -104,56 +103,70 @@ function initializeCountdown(utcEndTime) {
         ? new Date(listing.endsAt).toLocaleString()
         : "No end date provided";
   
-      // Calculate total bid amount if bid details are included
       const totalBidAmount = listing.bids?.length
         ? listing.bids.reduce((sum, bid) => sum + (bid.amount || 0), 0)
         : 0;
-
-        const sellerName = listing.seller?.name || "Ukjent selger";
   
-        let mediaContent = "";
-        if (listing.media && listing.media.length > 0) {
-          if (listing.media.length === 1) {
-            mediaContent = `
-              <div class="w-full aspect-w-16 aspect-h-9">
-                <img 
-                  src="${listing.media[0].url}" 
-                  alt="${listing.media[0].alt || ""}" 
-                  class="w-full h-full max-h-[500px] object-cover rounded-lg"
-                >
-              </div>`;
-          } else {
-            mediaContent = `
-              <div class="carousel relative w-full overflow-hidden">
-                <div id="carousel-images" class="flex transition-transform duration-500 ease-in-out">
-                  ${listing.media
-                    .map(
-                      (image) => `
-                      <div class="w-full aspect-w-16 aspect-h-9 flex-shrink-0">
-                        <img 
-                          src="${image.url}" 
-                          alt="${image.alt || "Listing Image"}" 
-                          class="w-full h-full max-h-[500px] object-cover rounded-lg"
-                        >
-                      </div>`
-                    )
-                    .join("")}
-                </div>
-                <button 
-                  id="prev-button" 
-                  class="absolute left-4 top-1/2 transform -translate-y-1/2 bg-gray-800 text-white rounded-full w-8 h-8 flex items-center justify-center z-20">
-                  &lt;
-                </button>
-                <button 
-                  id="next-button" 
-                  class="absolute right-4 top-1/2 transform -translate-y-1/2 bg-gray-800 text-white rounded-full w-8 h-8 flex items-center justify-center z-20">
-                  &gt;
-                </button>
-              </div>`;
-          }
+      const sellerName = listing.seller?.name || "Ukjent selger";
+  
+      let mediaContent = "";
+      if (listing.media && listing.media.length > 0) {
+        if (listing.media.length === 1) {
+          mediaContent = `
+            <div class="w-full aspect-w-16 aspect-h-9">
+              <img 
+                src="${listing.media[0].url}" 
+                alt="${listing.media[0].alt || ""}" 
+                class="w-full h-full max-h-[500px] object-cover rounded-lg"
+              >
+            </div>`;
         } else {
-          mediaContent = `<p>Ingen bilder.</p>`;
+          mediaContent = `
+            <div class="carousel relative w-full overflow-hidden">
+              <div id="carousel-images" class="flex transition-transform duration-500 ease-in-out">
+                ${listing.media
+                  .map(
+                    (image) => `
+                  <div class="w-full aspect-w-16 aspect-h-9 flex-shrink-0">
+                    <img 
+                      src="${image.url}" 
+                      alt="${image.alt || "Listing Image"}" 
+                      class="w-full h-full max-h-[500px] object-cover rounded-lg"
+                    >
+                  </div>`
+                  )
+                  .join("")}
+              </div>
+              <button 
+                id="prev-button" 
+                class="absolute left-4 top-1/2 transform -translate-y-1/2 bg-gray-800 text-white rounded-full w-8 h-8 flex items-center justify-center z-20">
+                &lt;
+              </button>
+              <button 
+                id="next-button" 
+                class="absolute right-4 top-1/2 transform -translate-y-1/2 bg-gray-800 text-white rounded-full w-8 h-8 flex items-center justify-center z-20">
+                &gt;
+              </button>
+            </div>`;
         }
+      } else {
+        mediaContent = `<p>Ingen bilder.</p>`;
+      }
+  
+      // Generate bidders list
+      const biddersHTML = listing.bids?.length
+        ? listing.bids
+            .map(
+              (bid, index) => `
+              <div class="flex justify-between items-center py-2 border-b">
+                <span class="text-gray-700 font-medium">#${index + 1}: ${
+                  bid.bidder?.name || "Anonym"
+                }</span>
+                <span class="text-secondary font-bold">${bid.amount} NOK</span>
+              </div>`
+            )
+            .join("")
+        : `<p class="text-gray-500">Ingen bud lagt inn.</p>`;
   
       const countdownHTML = listing.endsAt
         ? `<p id="countdown" class="text-lg font-bold text-red-500"></p>`
@@ -181,38 +194,42 @@ function initializeCountdown(utcEndTime) {
       `;
   
       listingContainer.innerHTML = `
-      <div class="listing bg-white shadow-md rounded-lg p-4">
-        <h1 class="text-2xl font-medium mb-4">${listing.title || ""}</h1>
-        ${mediaContent}
-        <div class="flex justify-end mt-4">
-          <p class="text-gray-700 text-sm"><strong>Opprettet av:</strong> ${sellerName}</p>
+        <div class="listing bg-white shadow-md rounded-lg p-4">
+          <h1 class="text-2xl font-medium mb-4">${listing.title || ""}</h1>
+          ${mediaContent}
+          <div class="flex justify-end mt-4">
+            <p class="text-gray-700 text-sm"><strong>Opprettet av:</strong> ${sellerName}</p>
+          </div>
+          <p class="text-gray-700 mt-4 mb-4"><strong>Beskrivelse:</strong> ${
+            listing.description || ""
+          }</p>
+          <p class="text-gray-700 mb-4"><strong>Opprettet:</strong> ${new Date(
+            listing.created
+          ).toLocaleString("no-NO", {
+            year: "numeric",
+            month: "long",
+            day: "numeric",
+            hour: "2-digit",
+            minute: "2-digit",
+          })}</p>
+          <p class="text-gray-700 mb-4"><strong>Oppdatert:</strong> ${new Date(
+            listing.updated
+          ).toLocaleString("no-NO", {
+            year: "numeric",
+            month: "long",
+            day: "numeric",
+            hour: "2-digit",
+            minute: "2-digit",
+          })}</p>
+          <p class="text-gray-700 mb-4"><strong>Slutter:</strong> ${endsAt}</p>
+          ${countdownHTML}
+          ${bidFormHTML}
+          <div class="bidders-section mt-6">
+            <h2 class="text-xl font-bold mb-4">Budgivere</h2>
+            ${biddersHTML}
+          </div>
         </div>
-        <p class="text-gray-700 mt-4 mb-4"><strong>Beskrivelse:</strong> ${
-          listing.description || ""
-        }</p>
-        <p class="text-gray-700 mb-4"><strong>Opprettet:</strong> ${new Date(
-          listing.created
-        ).toLocaleString("no-NO", {
-          year: "numeric",
-          month: "long",
-          day: "numeric",
-          hour: "2-digit",
-          minute: "2-digit",
-        })}</p>
-        <p class="text-gray-700 mb-4"><strong>Oppdatert:</strong> ${new Date(
-          listing.updated
-        ).toLocaleString("no-NO", {
-          year: "numeric",
-          month: "long",
-          day: "numeric",
-          hour: "2-digit",
-          minute: "2-digit",
-        })}</p>
-        <p class="text-gray-700 mb-4"><strong>Slutter:</strong> ${endsAt}</p>
-        ${countdownHTML}
-        ${bidFormHTML}
-      </div>
-    `;
+      `;
   
       // Initialize carousel and countdown
       if (listing.media && listing.media.length > 1) {
@@ -262,10 +279,10 @@ function initializeCountdown(utcEndTime) {
           bidMessage.textContent = "Ditt bud er plassert!";
           bidMessage.classList.remove("hidden");
           bidMessage.classList.add("text-green-500");
-
-          setTimeout(function(){
+  
+          setTimeout(function () {
             window.location.reload(1);
-         }, 5000);
+          }, 5000);
   
           bidAmountInput.value = "";
         } catch (error) {
