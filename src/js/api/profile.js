@@ -9,15 +9,15 @@ export async function fetchProfile(username) {
   }
 
   const url = new URL(`${API_BASE}/auction/profiles/${username}`);
-  url.searchParams.append("_listings", "true"); 
-  console.log("Fetching Profile with URL:", url);
+  url.searchParams.append("_listings", "true");
+  url.searchParams.append("_wins", "true"); 
 
   try {
     const response = await fetch(url, {
       headers: headers(authToken),
     });
 
-    console.log("Response Status:", response.status, response.statusText);
+    //console.log("Response Status:", response.status, response.statusText);
 
     if (!response.ok) {
       const errorDetails = await response.text();
@@ -26,6 +26,12 @@ export async function fetchProfile(username) {
     }
 
     const data = await response.json();
+    //console.log("Fetched Profile Data:", data);
+
+    if (!data) {
+      throw new Error("No profile data returned by API.");
+    }
+
     return data;
   } catch (error) {
     console.error("Error in fetchProfile:", error);
