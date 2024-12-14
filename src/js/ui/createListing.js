@@ -16,7 +16,7 @@ export async function onCreateListing(event) {
         })
         .filter((item) => item.url);
 
-    // Collect and format the `endsAt` input
+
     const endsAtInput = createForm.querySelector("input[name='endsAt']").value.trim();
     const endsAt = endsAtInput
         ? new Date(`${endsAtInput}:00`).toISOString()
@@ -51,7 +51,6 @@ export async function onCreateListing(event) {
     }
 }
 
-// Handle adding more image fields dynamically
 export function initializeImageFields() {
     const addImageButton = document.getElementById("add-image");
     const mediaContainer = document.getElementById("media-container");
@@ -64,21 +63,21 @@ export function initializeImageFields() {
     addImageButton.addEventListener("click", () => {
         // Create new image field container
         const imageField = document.createElement("div");
-        imageField.className = "image-field flex items-center gap-4 mb-2";
+        imageField.className = "image-field flex flex-col sm:flex-row sm:items-center gap-4 mb-2";
 
         // Create URL input field
         const urlInput = document.createElement("input");
         urlInput.type = "url";
         urlInput.name = "media-url";
         urlInput.placeholder = "Legg inn bilde url";
-        urlInput.className = "border border-gray-300 rounded-md p-2 flex-grow";
+        urlInput.className = "border border-secondary rounded-md p-2 w-full sm:w-auto sm:flex-1 focus:ring-2 focus:ring-secondary focus:outline-none";
 
         // Create alt text input field
         const altInput = document.createElement("input");
         altInput.type = "text";
         altInput.name = "media-alt";
         altInput.placeholder = "Legg inn alt tekst";
-        altInput.className = "border border-gray-300 rounded-md p-2 flex-grow";
+        altInput.className = "border border-secondary rounded-md p-2 w-full sm:w-auto sm:flex-1 focus:ring-2 focus:ring-secondary focus:outline-none";
 
         // Create remove button
         const removeButton = document.createElement("button");
@@ -89,12 +88,12 @@ export function initializeImageFields() {
             mediaContainer.removeChild(imageField);
         });
 
-        // Append inputs and button to the image field
+
         imageField.appendChild(urlInput);
         imageField.appendChild(altInput);
         imageField.appendChild(removeButton);
 
-        // Append the image field to the media container
+       
         mediaContainer.appendChild(imageField);
     });
 }

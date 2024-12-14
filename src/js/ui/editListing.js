@@ -12,54 +12,56 @@ export async function displayEditListingForm(listingId) {
         const listing = await fetchSingleListing(listingId);
         const { data } = listing;
 
-
         editContainer.innerHTML = `
             <form id="edit-listing-form" class="bg-white shadow-md rounded-lg p-6 flex flex-col gap-4">
               <div class="flex flex-col">
                 <label for="title" class="text-sm font-medium mb-1">Tittel</label>
-                <input id="title" name="title" type="text" value="${data.title}" required class="border border-gray-300 rounded-md p-2">
+                <input id="title" name="title" type="text" value="${data.title}" required 
+                  class="border border-secondary rounded-md p-2 focus:ring-2 focus:ring-secondary focus:outline-none">
               </div>
               <div class="flex flex-col">
                 <label for="description" class="text-sm font-medium mb-1">Beskrivelse</label>
-                <textarea id="description" name="description" required class="border border-gray-300 rounded-md p-2">${data.description || ""}</textarea>
+                <textarea id="description" name="description" required 
+                  class="border border-secondary rounded-md p-2 focus:ring-2 focus:ring-secondary focus:outline-none">${data.description || ""}</textarea>
               </div>
               <div class="flex flex-col gap-4" id="media-container">
                 <label class="text-sm font-medium mb-1">Bilder</label>
                 ${data.media
                     .map(
                         (media) => `
-                    <div class="image-field flex items-center gap-4 mb-2">
-                      <input type="url" name="media-url" value="${media.url}" placeholder="Bilde URL" class="border border-gray-300 rounded-md p-2 flex-grow">
-                      <input type="text" name="media-alt" value="${media.alt || ""}" placeholder="Alt tekst" class="border border-gray-300 rounded-md p-2 flex-grow">
+                    <div class="image-field flex flex-col sm:flex-row sm:items-center gap-4 mb-2">
+                      <input type="url" name="media-url" value="${media.url}" placeholder="Bilde URL" 
+                        class="border border-secondary rounded-md p-2 w-full sm:w-auto sm:flex-1 focus:ring-2 focus:ring-secondary focus:outline-none">
+                      <input type="text" name="media-alt" value="${media.alt || ""}" placeholder="Alt tekst" 
+                        class="border border-secondary rounded-md p-2 w-full sm:w-auto sm:flex-1 focus:ring-2 focus:ring-secondary focus:outline-none">
                       <button type="button" class="text-red-500 hover:underline" onclick="this.parentElement.remove()">Fjern</button>
                     </div>
                 `
                     )
                     .join("")}
-                <button type="button" id="add-image" class="text-black">Legg til flere bilder</button>
+                <button type="button" id="add-image" class="text-black hover:underline mt-2">Legg til flere bilder</button>
               </div>
               <button type="submit" class="bg-secondary text-white px-4 py-2 rounded-lg mx-auto w-30">Lagre endringer</button>
             </form>
         `;
 
-       
         document.getElementById("add-image").addEventListener("click", () => {
             const mediaContainer = document.getElementById("media-container");
 
             const imageField = document.createElement("div");
-            imageField.className = "image-field flex items-center gap-4 mb-2";
+            imageField.className = "image-field flex flex-col sm:flex-row sm:items-center gap-4 mb-2";
 
             const urlInput = document.createElement("input");
             urlInput.type = "url";
             urlInput.name = "media-url";
             urlInput.placeholder = "Bilde URL";
-            urlInput.className = "border border-gray-300 rounded-md p-2 flex-grow";
+            urlInput.className = "border border-secondary rounded-md p-2 w-full sm:w-auto sm:flex-1 focus:ring-2 focus:ring-secondary focus:outline-none";
 
             const altInput = document.createElement("input");
             altInput.type = "text";
             altInput.name = "media-alt";
             altInput.placeholder = "Alt tekst";
-            altInput.className = "border border-gray-300 rounded-md p-2 flex-grow";
+            altInput.className = "border border-secondary rounded-md p-2 w-full sm:w-auto sm:flex-1 focus:ring-2 focus:ring-secondary focus:outline-none";
 
             const removeButton = document.createElement("button");
             removeButton.type = "button";
@@ -75,7 +77,6 @@ export async function displayEditListingForm(listingId) {
 
             mediaContainer.appendChild(imageField);
         });
-
 
         document.getElementById("edit-listing-form").addEventListener("submit", async (event) => {
             event.preventDefault();
@@ -94,6 +95,7 @@ export async function displayEditListingForm(listingId) {
             const updatedData = {
                 title: form.querySelector("#title").value.trim(),
                 description: form.querySelector("#description").value.trim(),
+                media,
             };
 
             try {
