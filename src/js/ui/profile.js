@@ -24,7 +24,7 @@ export async function displayProfile() {
 
   try {
     const profileResponse = await fetchProfile(username);
-    console.log("Fetched Profile Data:", profileResponse);
+    //console.log("Fetched Profile Data:", profileResponse);
 
     const profile = profileResponse.data;
     const listings = profile.listings || [];
@@ -38,7 +38,7 @@ export async function displayProfile() {
       (listing) => new Date(listing.endsAt) <= currentTime
     );
 
-    // Render profile information with banner
+    // Render profile information
     profileContainer.innerHTML = `
     <div class="relative">
       <div class="relative">
@@ -70,10 +70,10 @@ export async function displayProfile() {
           <p class="text-gray-700 mt-4"><strong>Bio:</strong> ${
             profile.bio || ""
           }</p>
-          <p class="text-gray-700 mt-2"><strong>Antall annonser:</strong> ${
+          <p class="text-gray-700 mt-2"><strong>Antall annonser lagd:</strong> ${
             listings.length
           }</p>
-          <p class="text-gray-700 mt-2"><strong>Annonser du har vunnet:</strong> ${
+          <p class="text-gray-700 mt-2"><strong>Antall annonser vunnet:</strong> ${
             profile._count?.wins || 0
           }</p>
           <p class="text-gray-700 mt-2"><strong>Kreditt:</strong> ${
@@ -84,46 +84,44 @@ export async function displayProfile() {
     </div>
   `;
 
-    // Render sections
+    // Render "Annonser jeg har vunnet" Section
     userListingsContainer.innerHTML = `
-        <div class="section mb-8">
-          <h2 class="text-xl font-medium mb-4">Annonser jeg har vunnet</h2>
-          <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-            ${
-              profile.wins && profile.wins.length > 0
-                ? profile.wins
-                    .map(
-                      (win) => `
-                  <div class="listing bg-white shadow-md rounded-lg overflow-hidden block">
-                    <div class="relative">
-                      ${
-                        win.media && win.media.length > 0
-                          ? `<img src="${win.media[0].url}" alt="${
-                              win.media[0].alt || "Listing Image"
-                            }" class="w-full h-48 object-cover">`
-                          : `<div class="w-full h-48 bg-gray-200 flex items-center justify-center">No Image</div>`
-                      }
-                    </div>
-                    <div class="p-4 flex flex-col gap-2">
-                      <h3 class="text-lg font-medium">${win.title}</h3>
-                      <p class="text-gray-700 line-clamp-2">${
-                        win.description || ""
-                      }</p>
-                      <a href="/annonse/?id=${
-                        win.id
-                      }" class="text-secondary font-medium mt-2">SE ANNONSE</a>
-                    </div>
-                  </div>
-                `
-                    )
-                    .join("")
-                : `<p>Du har ikke vunnet noen annonser enda.</p>`
-            }
+<div class="section mb-8">
+  <h2 class="text-xl font-medium mb-4">Annonser jeg har vunnet</h2>
+  <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+    ${
+      profile.wins && profile.wins.length > 0
+        ? profile.wins
+            .map(
+              (win) => `
+          <div class="listing bg-white shadow-md rounded-lg overflow-hidden block">
+            <div class="relative">
+              ${
+                win.media && win.media.length > 0
+                  ? `<img src="${win.media[0].url}" alt="${
+                      win.media[0].alt || "Listing Image"
+                    }" class="w-full h-48 object-cover">`
+                  : `<div class="w-full h-48 bg-gray-200 flex items-center justify-center">No Image</div>`
+              }
+            </div>
+            <div class="p-4 flex flex-col gap-2">
+              <h3 class="text-lg font-medium">${win.title}</h3>
+              <p class="text-gray-700 line-clamp-2">${win.description || ""}</p>
+              <a href="/annonse/?id=${
+                win.id
+              }" class="text-secondary font-medium mt-2">SE ANNONSE</a>
+            </div>
           </div>
-        </div>
+        `
+            )
+            .join("")
+        : `<p>Du har ikke vunnet noen annonser enda.</p>`
+    }
+  </div>
+</div>
   
         <div class="section mb-8">
-          <h2 class="text-xl font-medium mb-4">Annonser jeg har lagt ut</h2>
+          <h2 class="text-xl font-medium mb-4">Aktive annonser</h2>
           <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
             ${
               activeListings.length > 0
