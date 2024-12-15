@@ -67,7 +67,7 @@ export async function displayProfile() {
         <h1 class="text-2xl font-medium mt-4">${profile.name}</h1>
         
         <div class="flex flex-col mt-6">
-          <p class="text-gray-700 mt-4"><strong>Bio:</strong> ${
+          <p class="text-gray-700 mt-4 break-words break-all whitespace-normal"><strong>Bio:</strong> ${
             profile.bio || ""
           }</p>
           <p class="text-gray-700 mt-2"><strong>Antall annonser lagd:</strong> ${
