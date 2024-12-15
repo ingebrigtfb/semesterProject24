@@ -47,8 +47,8 @@ export async function displayAllListings() {
         postsContainer.innerHTML = "";
   
         sortedListings.forEach((listing) => {
-          const totalBidAmount = listing.bids
-            ? listing.bids.reduce((sum, bid) => sum + (bid.amount || 0), 0)
+            const highestBidAmount = listing.bids?.length
+            ? Math.max(...listing.bids.map((bid) => bid.amount))
             : 0;
   
           const mediaContent =
@@ -71,7 +71,7 @@ export async function displayAllListings() {
                 <button class="bg-secondary text-white text-sm font-medium px-4 py-2 rounded hover:bg-grey-700">
                   GI BUD
                 </button>
-                <p class="text-sm font-medium text-gray-700">Total Bud: ${totalBidAmount} NOK</p>
+                <p class="text-sm font-medium text-gray-700">Høyeste bud: ${highestBidAmount} NOK</p>
               </div>
             </div>
           `;

@@ -39,3 +39,15 @@ export async function onUpdateProfile(event) {
     alert(`Error updating profile: ${error.message}`);
   }
 }
+
+//charater count
+
+export function updateCharCount() {
+    const bioField = document.getElementById('bio');
+    const charCount = document.getElementById('bio-char-count');
+    const remaining = 160 - bioField.value.length;
+    charCount.textContent = `${remaining} characters remaining`;
+}
+
+// Attach to window for global access
+window.updateCharCount = updateCharCount;
