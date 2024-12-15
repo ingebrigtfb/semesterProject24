@@ -116,7 +116,7 @@ export async function displayProfile() {
                     }" class="text-secondary font-medium hover:underline mt-auto">SE ANNONSE</a>
                   </div>
                 </div>
-              `
+              `,
                 )
                 .join("")
             : `<p>Du har ikke vunnet noen annonser enda.</p>`
@@ -165,7 +165,7 @@ export async function displayProfile() {
                   </div>
                 </div>
               </div>
-            `
+            `,
               )
               .join("")
           : `<p>Du har ingen aktive annonser.</p>`
@@ -214,7 +214,7 @@ export async function displayProfile() {
                   </div>
                 </div>
               </div>
-            `
+            `,
               )
               .join("")
           : `<p>Ingen utgåtte annonser.</p>`
@@ -232,10 +232,10 @@ export async function displayProfile() {
         if (confirm("Er du sikker på at du vil slette denne annonsen?")) {
           try {
             await deleteListing(listingId);
-            alert("Annonse slettet.");
+            //alert("Annonse slettet.");
             displayProfile();
           } catch (error) {
-            alert(`Failed to delete listing: ${error.message}`);
+            alert(`Feilet å slette: ${error.message}`);
           }
         }
       });

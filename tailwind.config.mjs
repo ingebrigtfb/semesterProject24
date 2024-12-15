@@ -1,5 +1,15 @@
+// tailwind.config.mjs
 export default {
-  content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}"],
+  content: [
+    "./index.html",
+    "./src/**/*.{js,ts,jsx,tsx}",
+    "./auth/**/*.{html,js}",
+    "./profil/**/*.{html,js}",
+    "./lage/**/*.{html,js}",
+    "./rediger/**/*.{html,js}",
+    "./annonse/**/*.{html,js}",
+    "./oppdater-profil/**/*.{html,js}",
+  ],
   theme: {
     extend: {
       colors: {
