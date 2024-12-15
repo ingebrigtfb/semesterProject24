@@ -87,135 +87,141 @@ export async function displayProfile() {
     // Render "Annonser jeg har vunnet" Section
     userListingsContainer.innerHTML = `
     <div class="section mb-8">
-      <h2 class="text-xl font-medium mb-4">Annonser jeg har vunnet</h2>
-      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+      <h2 class="text-2xl font-medium mb-4">Annonser jeg har vunnet</h2>
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 max-w-[1400px] m-auto">
         ${
           profile.wins && profile.wins.length > 0
             ? profile.wins
                 .map(
                   (win) => `
-              <div class="listing bg-white shadow-md rounded-lg flex flex-col overflow-hidden">
-                <div class="relative">
-                  ${
-                    win.media && win.media.length > 0
-                      ? `<img src="${win.media[0].url}" alt="${
-                          win.media[0].alt || "Annonse bilde"
-                        }" class="w-full h-48 object-cover">`
-                      : `<div class="w-full h-48 bg-gray-200 flex items-center justify-center">Ingen bilde</div>`
-                  }
+                <div class="bg-containers shadow-md rounded-lg flex flex-col min-w-[300px] overflow-hidden hover:shadow-lg transition-shadow duration-300">
+                  <div class="relative">
+                    ${
+                      win.media && win.media.length > 0
+                        ? `<img src="${win.media[0].url}" alt="${
+                            win.media[0].alt || "Listing Image"
+                          }" class="w-full h-64 object-cover">`
+                        : `<div class="w-full h-64 bg-gray-200 flex items-center justify-center">Ingen bilde</div>`
+                    }
+                  </div>
+                  <div class="p-4 flex flex-col justify-between flex-grow">
+                    <h3 class="text-lg font-medium mb-2 line-clamp-3">${
+                      win.title
+                    }</h3>
+                    <p class="text-sm text-gray-600 mb-4 line-clamp-3">${
+                      win.description || ""
+                    }</p>
+                    <a href="/annonse/?id=${
+                      win.id
+                    }" class="text-secondary font-medium hover:underline mt-auto">SE ANNONSE</a>
+                  </div>
                 </div>
-                <div class="p-4 flex flex-col flex-grow">
-                  <h3 class="text-lg font-medium">${win.title}</h3>
-                  <p class="text-gray-700 line-clamp-2">${
-                    win.description || "Bio:"
-                  }</p>
-                </div>
-                <div class="mt-auto p-4 flex justify-between">
-                  <a href="/annonse/?id=${
-                    win.id
-                  }" class="text-secondary font-medium hover:underline">SE ANNONSE</a>
-                </div>
-              </div>
-            `,
+              `
                 )
                 .join("")
             : `<p>Du har ikke vunnet noen annonser enda.</p>`
         }
       </div>
     </div>
-  
-       <div class="section mb-8">
-  <h2 class="text-xl font-medium mb-4">Aktive annonser</h2>
-  <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-    ${
-      activeListings.length > 0
-        ? activeListings
-            .map(
-              (listing) => `
-          <div class="listing bg-white shadow-md rounded-lg flex flex-col overflow-hidden">
-            <div class="relative">
-              ${
-                listing.media && listing.media.length > 0
-                  ? `<img src="${listing.media[0].url}" alt="${
-                      listing.media[0].alt || "Annonse bilde"
-                    }" class="w-full h-48 object-cover">`
-                  : `<div class="w-full h-48 bg-gray-200 flex items-center justify-center">Ingen bilde</div>`
-              }
-            </div>
-            <div class="p-4 flex flex-col flex-grow">
-              <h3 class="text-lg font-medium">${listing.title}</h3>
-              <p class="text-gray-700 line-clamp-2">${
-                listing.description || "Bio:"
-              }</p>
-            </div>
-            <div class="mt-auto p-4 flex justify-between">
-              <a href="/annonse/?id=${
-                listing.id
-              }" class="text-secondary font-medium hover:underline">SE ANNONSE</a>
-              <div class="flex gap-4">
-                <a href="/rediger/?id=${
-                  listing.id
-                }" class="text-secondary hover:underline">ENDRE</a>
-                <a href="#" data-id="${
-                  listing.id
-                }" class="text-red-500 hover:underline delete-listing">SLETT</a>
+
+
+    <div class="section mb-8">
+    <h2 class="text-2xl font-medium mb-4">Aktive annonser</h2>
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 max-w-[1400px] m-auto">
+      ${
+        activeListings.length > 0
+          ? activeListings
+              .map(
+                (listing) => `
+              <div class="bg-containers shadow-md rounded-lg flex flex-col min-w-[300px] overflow-hidden hover:shadow-lg transition-shadow duration-300">
+                <div class="relative">
+                  ${
+                    listing.media && listing.media.length > 0
+                      ? `<img src="${listing.media[0].url}" alt="${
+                          listing.media[0].alt || "Listing Image"
+                        }" class="w-full h-64 object-cover">`
+                      : `<div class="w-full h-64 bg-gray-200 flex items-center justify-center">Ingen bilde</div>`
+                  }
+                </div>
+                <div class="p-4 flex flex-col justify-between flex-grow">
+                  <h3 class="text-lg font-medium mb-2 line-clamp-3">${
+                    listing.title
+                  }</h3>
+                  <p class="text-sm text-gray-600 mb-4 line-clamp-3">${
+                    listing.description || ""
+                  }</p>
+                  <div class="flex items-center justify-between mt-auto">
+                    <a href="/annonse/?id=${
+                      listing.id
+                    }" class="text-secondary font-medium hover:underline">SE ANNONSE</a>
+                    <div class="flex items-center gap-4">
+                      <a href="/rediger/?id=${
+                        listing.id
+                      }" class="text-secondary hover:underline">ENDRE</a>
+                      <a href="#" data-id="${
+                        listing.id
+                      }" class="text-red-500 hover:underline delete-listing">SLETT</a>
+                    </div>
+                  </div>
+                </div>
               </div>
-            </div>
-          </div>
-        `,
-            )
-            .join("")
-        : `<p>Du har ingen aktive annonser.</p>`
-    }
+            `
+              )
+              .join("")
+          : `<p>Du har ingen aktive annonser.</p>`
+      }
+    </div>
   </div>
-</div>
-  
-<div class="section">
-  <h2 class="text-xl font-medium mb-4">Utgåtte Annonser</h2>
-  <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-    ${
-      endedListings.length > 0
-        ? endedListings
-            .map(
-              (listing) => `
-          <div class="listing bg-white shadow-md rounded-lg flex flex-col overflow-hidden">
-            <div class="relative">
-              ${
-                listing.media && listing.media.length > 0
-                  ? `<img src="${listing.media[0].url}" alt="${
-                      listing.media[0].alt || "Annonse bilde"
-                    }" class="w-full h-48 object-cover">`
-                  : `<div class="w-full h-48 bg-gray-200 flex items-center justify-center">Ingen bilde</div>`
-              }
-            </div>
-            <div class="p-4 flex flex-col flex-grow">
-              <h3 class="text-lg font-medium">${listing.title}</h3>
-              <p class="text-gray-700 line-clamp-2">${
-                listing.description || ""
-              }</p>
-            </div>
-            <div class="mt-auto p-4 flex justify-between">
-              <a href="/annonse/?id=${
-                listing.id
-              }" class="text-secondary font-medium hover:underline">SE ANNONSE</a>
-              <div class="flex gap-4">
-                <a href="/rediger/?id=${
-                  listing.id
-                }" class="text-secondary hover:underline">ENDRE</a>
-                <a href="#" data-id="${
-                  listing.id
-                }" class="text-red-500 hover:underline delete-listing">SLETT</a>
+
+
+   <div class="section">
+    <h2 class="text-2xl font-medium mb-4">Utgåtte Annonser</h2>
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 max-w-[1400px] m-auto">
+      ${
+        endedListings.length > 0
+          ? endedListings
+              .map(
+                (listing) => `
+              <div class="bg-containers shadow-md rounded-lg flex flex-col min-w-[300px] overflow-hidden hover:shadow-lg transition-shadow duration-300">
+                <div class="relative">
+                  ${
+                    listing.media && listing.media.length > 0
+                      ? `<img src="${listing.media[0].url}" alt="${
+                          listing.media[0].alt || "Listing Image"
+                        }" class="w-full h-64 object-cover">`
+                      : `<div class="w-full h-64 bg-gray-200 flex items-center justify-center">Ingen bilde</div>`
+                  }
+                </div>
+                <div class="p-4 flex flex-col justify-between flex-grow">
+                  <h3 class="text-lg font-medium mb-2 line-clamp-3">${
+                    listing.title
+                  }</h3>
+                  <p class="text-sm text-gray-600 mb-4 line-clamp-3">${
+                    listing.description || ""
+                  }</p>
+                  <div class="flex items-center justify-between mt-auto">
+                    <a href="/annonse/?id=${
+                      listing.id
+                    }" class="text-secondary font-medium hover:underline">SE ANNONSE</a>
+                    <div class="flex items-center gap-4">
+                      <a href="/rediger/?id=${
+                        listing.id
+                      }" class="text-secondary hover:underline">ENDRE</a>
+                      <a href="#" data-id="${
+                        listing.id
+                      }" class="text-red-500 hover:underline delete-listing">SLETT</a>
+                    </div>
+                  </div>
+                </div>
               </div>
-            </div>
-          </div>
-        `,
-            )
-            .join("")
-        : `<p>Ingen utgåtte annonser.</p>`
-    }
+            `
+              )
+              .join("")
+          : `<p>Ingen utgåtte annonser.</p>`
+      }
+    </div>
   </div>
-</div>
-      `;
+`;
 
     // Add delete functionality
     document.querySelectorAll(".delete-listing").forEach((deleteLink) => {
