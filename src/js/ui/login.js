@@ -8,7 +8,7 @@ export async function onLogin(event) {
 
   try {
     await login(data);
-    alert("You are now logged in");
+    //alert("You are now logged in");
     window.location.href = "/";
   } catch (error) {
     alert(error);

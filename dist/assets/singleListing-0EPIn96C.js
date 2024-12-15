@@ -45,7 +45,6 @@ import{f as v}from"./singleListing-DEtMEmTg.js";import{A as w}from"./constants-C
               id="bid-amount" 
               placeholder="Legg inn bud (NOK)" 
               class="w-full border border-secondary rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-secondary" 
-              required
             />
             <button 
               type="submit" 
