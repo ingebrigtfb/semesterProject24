@@ -19,7 +19,7 @@ export async function deleteListing(listingId) {
       const errorDetails = await response.json();
       console.error("Server Response:", errorDetails);
       throw new Error(
-        `Failed to delete listing: ${errorDetails.message || "Unknown error"}`
+        `Failed to delete listing: ${errorDetails.message || "Unknown error"}`,
       );
     }
 

@@ -9,7 +9,6 @@ export async function fetchAllListings() {
     url.searchParams.append("sort", "created");
     url.searchParams.append("sortOrder", "desc");
 
-
     const response = await fetch(url);
     if (!response.ok) {
       throw new Error(`Failed to fetch listings: ${response.statusText}`);

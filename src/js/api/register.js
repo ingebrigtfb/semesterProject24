@@ -1,14 +1,6 @@
 import { API_AUTH_REGISTER } from "./constants";
 
-
-export async function register({
-  name,
-  email,
-  password,
-  bio,
-  banner,
-  avatar,
-}) {
+export async function register({ name, email, password, bio, banner, avatar }) {
   const response = await fetch(API_AUTH_REGISTER, {
     headers: {
       "Content-Type": "application/json",

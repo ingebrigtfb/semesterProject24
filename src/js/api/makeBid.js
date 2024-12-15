@@ -2,12 +2,11 @@ import { API_AUCTION_LISTINGS } from "./constants.js";
 import { headers } from "./headers.js";
 
 export async function makeBid(listingId, amount) {
+  const token = localStorage.getItem("token");
 
-    const token = localStorage.getItem("token");
-
-    if (!token) {
-        throw new Error("No auth token found. Please log in.");
-    }
+  if (!token) {
+    throw new Error("No auth token found. Please log in.");
+  }
   try {
     const url = `${API_AUCTION_LISTINGS}/${listingId}/bids`;
 

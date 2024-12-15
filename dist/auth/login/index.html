@@ -1,51 +1,57 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="no">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Login</title>
-  <script type="module" crossorigin src="../../assets/app-BJiaqn7L.js"></script>
-  <link rel="stylesheet" crossorigin href="../../assets/app-PoVeSKd-.css">
-</head>
-<body>
+    <script type="module" crossorigin src="../../assets/app-DyEoIW7s.js"></script>
+    <link rel="stylesheet" crossorigin href="../../assets/app-ttyP4yPe.css">
+  </head>
+  <body>
     <header id="header"></header>
     <main class="flex items-center justify-center mt-10">
-        <form name="login" class="w-[80%] max-w-lg h-auto bg-containers shadow-md p-6 flex flex-col gap-4">
-           
-            <h1 class="text-center text-xl font-medium mb-4">LOGIN</h1>
-            
-           
-            <div class="flex flex-col">
-              <label for="email" class="text-sm font-medium mb-1">EMAIL</label>
-              <input
-                id="email"
-                type="email"
-                name="email"
-                required
-                class="border border-secondary rounded-md p-2 focus:ring-2 focus:ring-secondary outline-none"
-              />
-            </div>
-            
-            <div class="flex flex-col">
-              <label for="password" class="text-sm font-medium mb-1">PASSORD</label>
-              <input
-                id="password"
-                type="password"
-                name="password"
-                required
-                class="border border-secondary rounded-md p-2 focus:ring-2 focus:ring-secondary outline-none"
-              />
-            </div>
-            
-            <div class="flex justify-between items-center mt-4">
-              <a href="/auth/register/" class="text-lg font-medium text-secondary hover:underline">REGISTRER</a>
-              <button
-                type="submit"
-                class="bg-secondary text-md text-white font-medium px-6 py-2 rounded-md hover:bg-gray-700 transition">
-                LOGIN
-              </button>
-            </div>
-          </form>
+      <form
+        name="login"
+        class="w-[80%] max-w-lg h-auto bg-containers shadow-md p-6 flex flex-col gap-4"
+      >
+        <h1 class="text-center text-xl font-medium mb-4">LOGIN</h1>
+
+        <div class="flex flex-col">
+          <label for="email" class="text-sm font-medium mb-1">EMAIL</label>
+          <input
+            id="email"
+            type="email"
+            name="email"
+            required
+            class="border border-secondary rounded-md p-2 focus:ring-2 focus:ring-secondary outline-none"
+          />
+        </div>
+
+        <div class="flex flex-col">
+          <label for="password" class="text-sm font-medium mb-1">PASSORD</label>
+          <input
+            id="password"
+            type="password"
+            name="password"
+            required
+            class="border border-secondary rounded-md p-2 focus:ring-2 focus:ring-secondary outline-none"
+          />
+        </div>
+
+        <div class="flex justify-between items-center mt-4">
+          <a
+            href="/auth/register/"
+            class="text-lg font-medium text-secondary hover:underline"
+            >REGISTRER</a
+          >
+          <button
+            type="submit"
+            class="bg-secondary text-md text-white font-medium px-6 py-2 rounded-md hover:bg-gray-700 transition"
+          >
+            LOGIN
+          </button>
+        </div>
+      </form>
     </main>
-</body>
+  </body>
 </html>

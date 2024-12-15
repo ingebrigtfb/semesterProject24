@@ -13,7 +13,7 @@ function initializeCountdown(utcEndTime) {
 
     if (timeRemaining <= 0) {
       clearInterval(timer);
-      countdownElement.textContent = "Auction has ended.";
+      countdownElement.textContent = "AUKSJONEN ER AVSLUTTET";
       countdownElement.classList.add("text-gray-500");
       return;
     }
@@ -86,6 +86,10 @@ export async function displaySingleListing() {
     return;
   }
 
+  listingContainer.innerHTML = `<div class="flex justify-center items-center h-48">Laster innhold
+      <div class="loader border-t-4 border-secondary border-solid rounded-full w-8 h-8 animate-spin"></div>
+    </div>`;
+
   const urlParams = new URLSearchParams(window.location.search);
   const listingId = urlParams.get("id");
   console.log("Listing ID:", listingId);
@@ -110,7 +114,6 @@ export async function displaySingleListing() {
       : [];
 
     const highestBidAmount = sortedBids.length > 0 ? sortedBids[0].amount : 0;
-      
 
     const sellerName = listing.seller?.name || "Ukjent selger";
 
@@ -138,7 +141,7 @@ export async function displaySingleListing() {
                       alt="${image.alt || "Listing Image"}" 
                       class="w-full h-full max-h-[500px] object-cover rounded-lg"
                     >
-                  </div>`
+                  </div>`,
                   )
                   .join("")}
               </div>
@@ -169,7 +172,7 @@ export async function displaySingleListing() {
         </p>
         <p class="text-sm text-gray-600">${bid.amount} NOK</p>
       </div>
-    `
+    `,
           )
           .join("")
       : `<p class="text-gray-500">Ingen bud enda.</p>`;
@@ -200,7 +203,7 @@ export async function displaySingleListing() {
       `;
 
     listingContainer.innerHTML = `
-      <div class="listing bg-white shadow-md rounded-lg p-4">
+      <div class="listing bg-containers shadow-md rounded-lg p-4">
         <h1 class="text-2xl font-medium mb-4">${listing.title || ""}</h1>
         ${mediaContent}
         <div class="flex justify-end mt-4">
@@ -209,6 +212,24 @@ export async function displaySingleListing() {
         <p class="text-gray-700 mt-4 mb-4"><strong>Beskrivelse:</strong> ${
           listing.description || ""
         }</p>
+        <p class="text-gray-700 mb-4"><strong>Opprettet:</strong> ${new Date(
+          listing.created,
+        ).toLocaleString("no-NO", {
+          year: "numeric",
+          month: "long",
+          day: "numeric",
+          hour: "2-digit",
+          minute: "2-digit",
+        })}</p>
+        <p class="text-gray-700 mb-4"><strong>Oppdatert:</strong> ${new Date(
+          listing.updated,
+        ).toLocaleString("no-NO", {
+          year: "numeric",
+          month: "long",
+          day: "numeric",
+          hour: "2-digit",
+          minute: "2-digit",
+        })}</p>
         <p class="text-gray-700 mb-4"><strong>Slutter:</strong> ${endsAt}</p>
         ${countdownHTML}
         ${bidFormHTML}
@@ -244,7 +265,7 @@ export async function displaySingleListing() {
         bidMessage.classList.add("text-red-600");
 
         const redirectToLogin = confirm(
-          "Du må logge inn for å by. Vil du bli omdirigert til innlogging?"
+          "Du må logge inn for å by. Vil du bli omdirigert til innlogging?",
         );
 
         if (redirectToLogin) {

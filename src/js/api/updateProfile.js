@@ -1,7 +1,6 @@
 import { API_BASE } from "./constants.js";
 import { headers } from "./headers.js";
 
-
 export async function updateProfile(username, profileData) {
   const authToken = localStorage.getItem("token");
   if (!authToken) {
@@ -22,7 +21,9 @@ export async function updateProfile(username, profileData) {
     if (!response.ok) {
       const errorDetails = await response.json();
       console.error("Server Response:", errorDetails);
-      throw new Error(`Profile update failed: ${errorDetails.message || "Unknown error"}`);
+      throw new Error(
+        `Profile update failed: ${errorDetails.message || "Unknown error"}`,
+      );
     }
 
     return await response.json();
@@ -31,7 +32,3 @@ export async function updateProfile(username, profileData) {
     throw error;
   }
 }
-
-
-
-

@@ -13,11 +13,11 @@ export async function login({ email, password }) {
   });
 
   if (response.ok) {
-    const { data } = await response.json(); 
-    const { accessToken: token, ...user } = data; 
+    const { data } = await response.json();
+    const { accessToken: token, ...user } = data;
     const userName = user.name;
     localStorage.setItem("token", token);
-    localStorage.setItem("userName", userName); 
+    localStorage.setItem("userName", userName);
     return data;
   }
   throw new Error("Login failed");
