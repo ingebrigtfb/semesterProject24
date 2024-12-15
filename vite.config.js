@@ -1,9 +1,12 @@
+import { fileURLToPath, URL } from "url";
 import { resolve } from "path";
 import { defineConfig } from "vite";
 import dotenv from "dotenv";
 
 // Load environment variables
 dotenv.config();
+
+const __dirname = fileURLToPath(new URL(".", import.meta.url));
 
 export default defineConfig(async () => {
   const { viteStaticCopy } = await import("vite-plugin-static-copy");
@@ -30,11 +33,11 @@ export default defineConfig(async () => {
       viteStaticCopy({
         targets: [
           {
-            src: 'images', 
-            dest: '' 
-          }
-        ]
-      })
+            src: "images",
+            dest: "",
+          },
+        ],
+      }),
     ],
     define: {
       "import.meta.env.VITE_API_KEY": JSON.stringify(process.env.VITE_API_KEY),

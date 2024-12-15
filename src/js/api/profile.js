@@ -10,7 +10,7 @@ export async function fetchProfile(username) {
 
   const url = new URL(`${API_BASE}/auction/profiles/${username}`);
   url.searchParams.append("_listings", "true");
-  url.searchParams.append("_wins", "true"); 
+  url.searchParams.append("_wins", "true");
 
   try {
     const response = await fetch(url, {
@@ -21,8 +21,15 @@ export async function fetchProfile(username) {
 
     if (!response.ok) {
       const errorDetails = await response.text();
-      console.error("Server Response:", response.status, response.statusText, errorDetails);
-      throw new Error(`Failed to fetch profile: ${response.status} ${response.statusText} - ${errorDetails || "No details"}`);
+      console.error(
+        "Server Response:",
+        response.status,
+        response.statusText,
+        errorDetails,
+      );
+      throw new Error(
+        `Failed to fetch profile: ${response.status} ${response.statusText} - ${errorDetails || "No details"}`,
+      );
     }
 
     const data = await response.json();
