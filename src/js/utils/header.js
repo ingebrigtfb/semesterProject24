@@ -97,7 +97,7 @@ container.appendChild(dropdown);
 
 // Hamburger menu click event
 menu.addEventListener("click", () => {
-  dropdown.classList.toggle("hidden"); // Toggle dropdown visibility
+  dropdown.classList.toggle("hidden"); 
 
   const lines = menu.querySelectorAll("div");
   // Animate lines for "X" effect

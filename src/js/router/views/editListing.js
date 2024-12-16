@@ -1,4 +1,7 @@
 import { displayEditListingForm } from "../../ui/editListing.js";
+import { authorize } from "../../utils/authorize.js";
+
+authorize();
 
 const urlParams = new URLSearchParams(window.location.search);
 const listingId = urlParams.get("id");

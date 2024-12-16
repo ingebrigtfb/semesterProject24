@@ -1,6 +1,6 @@
 export function logout() {
   localStorage.removeItem("token");
   localStorage.removeItem("userName");
-  alert("You have been logged out.");
+  alert("Du ble logget ut");
   window.location.href = "/auth/login/";
 }
