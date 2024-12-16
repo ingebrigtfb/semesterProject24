@@ -5,8 +5,7 @@ Dette prosjektet er et Vite-basert prosjekt som inkluderer støtte for Tailwind 
 
 ## Kom i gang
 
-npm run dev: Starter utviklingsserveren for lokalt arbeid.
-Åpne http://localhost:3000 i nettleseren din.
+npm run dev: Starter utviklingsserveren for lokalt arbeid i nettleseren din.
 
 npm run build: Bygger prosjektet for produksjon. Resultatet lagres i dist-mappen.
 
