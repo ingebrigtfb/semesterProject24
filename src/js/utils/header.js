@@ -53,6 +53,34 @@ const privateOptions = [
 
 const token = localStorage.getItem("token");
 
+
+const style = document.createElement("style");
+style.textContent = `
+  .active {
+    text-decoration: underline;
+  }
+`;
+document.head.appendChild(style);
+
+
+const setActiveMenuItem = () => {
+  const currentPath = window.location.pathname;
+
+ 
+  const menuItems = dropdown.querySelectorAll("a:not([href='#'])");
+
+  menuItems.forEach((item) => {
+    const hrefPath = new URL(item.href, window.location.origin).pathname;
+
+
+    if (currentPath === hrefPath) {
+      item.classList.add("active");
+    } else {
+      item.classList.remove("active");
+    }
+  });
+};
+
 // Add public options to dropdown
 publicOptions.forEach((option) => {
   const optionElement = document.createElement("a");
@@ -75,7 +103,6 @@ if (token) {
   });
 }
 
-// Add auth option (login/logout)
 const authOption = document.createElement("a");
 authOption.className =
   "block px-4 py-2 text-black hover:underline rounded md:rounded-none";
@@ -95,12 +122,15 @@ if (token) {
 dropdown.appendChild(authOption);
 container.appendChild(dropdown);
 
+// Set active menu item
+setActiveMenuItem();
+
 // Hamburger menu click event
 menu.addEventListener("click", () => {
-  dropdown.classList.toggle("hidden"); 
+  dropdown.classList.toggle("hidden");
 
   const lines = menu.querySelectorAll("div");
-  // Animate lines for "X" effect
+
   lines[0].classList.toggle("translate-y-[9px]");
   lines[0].classList.toggle("rotate-45");
 
