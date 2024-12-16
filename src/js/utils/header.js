@@ -81,7 +81,7 @@ authOption.className =
   "block px-4 py-2 text-black hover:underline rounded md:rounded-none";
 
 if (token) {
-  authOption.textContent = "Logout";
+  authOption.textContent = "Logg ut";
   authOption.href = "#";
   authOption.addEventListener("click", (event) => {
     event.preventDefault();
