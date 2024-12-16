@@ -11,13 +11,13 @@ export async function displayAllListings() {
   }
 
   async function fetchAndRenderListings(query = "") {
-    console.log("Search query:", query);
+    //console.log("Search query:", query);
     postsContainer.innerHTML = `<div class="flex justify-center">Laster innhold<p class="loader border-t-4 border-secondary border-solid rounded-full w-8 h-8 animate-spin"></p></div>`;
     try {
       const response = query
         ? await searchListings(query)
         : await fetchAllListings();
-      console.log("API Response:", response);
+      //console.log("API Response:", response);
 
       const listings = response.data;
 

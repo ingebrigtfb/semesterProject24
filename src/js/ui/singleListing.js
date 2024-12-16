@@ -92,12 +92,12 @@ export async function displaySingleListing() {
 
   const urlParams = new URLSearchParams(window.location.search);
   const listingId = urlParams.get("id");
-  console.log("Listing ID:", listingId);
+  //console.log("Listing ID:", listingId);
 
   try {
     const response = await fetchSingleListing(listingId);
     const listing = response.data;
-    console.log("Fetched Listing Data:", listing);
+    //console.log("Fetched Listing Data:", listing);
 
     if (!listing) {
       listingContainer.innerHTML = `<p>Annonse ble ikke funnet.</p>`;
