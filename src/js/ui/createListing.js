@@ -42,7 +42,7 @@ export async function onCreateListing(event) {
     const listingId = createdListing.data?.id;
 
     if (listingId) {
-      alert("Listing created successfully!");
+      alert("Annonsen ble laget");
       window.location.href = `/annonse/?id=${listingId}`;
     } else {
       throw new Error("Listing ID not found in the response.");
@@ -68,7 +68,7 @@ export function initializeImageFields() {
     imageField.className =
       "image-field flex flex-col sm:flex-row sm:items-center gap-4 mb-2";
 
-    // Create URL input field
+  
     const urlInput = document.createElement("input");
     urlInput.type = "url";
     urlInput.name = "media-url";
@@ -76,7 +76,7 @@ export function initializeImageFields() {
     urlInput.className =
       "border border-secondary rounded-md p-2 w-full sm:w-auto sm:flex-1 focus:ring-2 focus:ring-secondary focus:outline-none";
 
-    // Create alt text input field
+
     const altInput = document.createElement("input");
     altInput.type = "text";
     altInput.name = "media-alt";
